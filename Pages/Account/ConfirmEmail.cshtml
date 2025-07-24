@@ -1,0 +1,23 @@
+﻿@page
+@model CompleteOfficeApplication.Pages.Account.ConfirmEmailModel
+@{
+}
+
+<div class="min-h-screen bg-[#06081c] flex items-center justify-center px-4 text-gray-100">
+    <div class="w-full max-w-md bg-[#0a0e27] p-8 rounded-xl shadow text-center">
+        <svg class="mx-auto w-16 h-16 mb-4 text-green-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+
+        <h2 class="text-2xl font-bold mb-2 text-white">Email Confirmation</h2>
+
+        <p class="text-gray-300 mb-6">
+            @Model.Message
+        </p>
+
+        <a asp-page="/Account/Login"
+           class="inline-block bg-white text-[#0a0e27] px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
+            Sign In
+        </a>
+    </div>
+</div>
