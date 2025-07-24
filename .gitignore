@@ -1,0 +1,22 @@
+#bin
+/bin
+
+
+#obj
+/obj
+
+#Debug
+/Debug
+
+#Release
+/Release
+
+#Environment Variables
+*appsettings*.json
+
+#NuGet Packages
+*.nupkg
+
+#Visual Studio Code
+.vscode
+/.vs
