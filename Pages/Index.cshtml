@@ -1,10 +1,56 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="relative h-screen bg-cover bg-center" style="background-image: url('/images/testimg.jpg');">
+    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <div class="text-center text-white px-4 mt-20">
+            <h1 class="text-5xl font-bold mb-4">CompleteOffice</h1>
+            <p class="text-xl mb-6">Your all-in-one productivity solution</p>
+            <a href="/signup" class="bg-white text-gray-500 px-6 py-3 rounded-lg font-semibold shadow hover:bg-gray-100">
+                Get Started
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="py-20 bg-gray-100">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-10">Powerful Features</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-6 bg-white rounded-xl shadow">
+                <h3 class="text-xl font-semibold mb-2">Task Management</h3>
+                <p>Organize and track work with smart task boards.</p>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow">
+                <h3 class="text-xl font-semibold mb-2">Real-time Chat</h3>
+                <p>Communicate instantly with your team members.</p>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow">
+                <h3 class="text-xl font-semibold mb-2">File Sharing</h3>
+                <p>Share and access files securely from anywhere.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About -->
+<section id="about" class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6">Why CompleteOffice?</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+            CompleteOffice is built for remote and hybrid teams who need seamless collaboration tools in one place.
+            No more juggling between apps — focus on your work, we handle the rest.
+        </p>
+    </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="py-16 bg-[#0a0e27] text-white text-center">
+    <h2 class="text-3xl font-bold mb-4">Ready to boost your productivity?</h2>
+    <a href="/signup" class="bg-white text-gray-500 px-6 py-3 font-semibold rounded-lg hover:bg-gray-200">Join Now</a>
+</section>
