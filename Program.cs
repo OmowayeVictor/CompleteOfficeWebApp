@@ -14,6 +14,7 @@ builder.Services.AddDbContext<OfficeWebAppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IEmail, Email>();
+builder.Services.AddScoped<IHelpers, Helpers>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
@@ -28,6 +29,12 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 })
     .AddEntityFrameworkStores<OfficeWebAppDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
 
 var app = builder.Build();
 
