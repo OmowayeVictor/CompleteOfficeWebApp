@@ -1,36 +1,50 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>@ViewData["Title"] - CompleteOffice</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="~/css/site.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="font-sans antialiased text-gray-800">
+﻿@{  
+    var isAuthenticated = User?.Identity?.IsAuthenticated ?? false;  
+    var currentPage = ViewContext.RouteData.Values["page"]?.ToString();
+}  
 
-    <!-- Nav Bar (shared across pages) -->
-    <header class="absolute top-0 left-0 w-full z-10">
-        <nav class="flex items-center justify-between px-6 py-4 bg-transparent text-white">
-            <div class="text-2xl font-bold">CompleteOffice</div>
-            <ul class="hidden md:flex space-x-6 text-lg">
-                <li><a class="hover:underline" asp-page="/Feature">Features</a></li>
-                <li><a class="hover:underline" asp-page="/About">About</a></li>
-                <li><a class="hover:underline" asp-page="/Contact">Contact</a></li>
-            </ul>
-           <div class="hidden md:flex space-x-4">
-                <a class="bg-[#0a0e27] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#06081c]" asp-page="/Account/Login">Sign In</a>
-                <a class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100" asp-page="/Account/Register">
-                    Sign Up
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="utf-8" />  
+    <title>@ViewData["Title"] - CompleteOffice</title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    <link href="~/css/site.css" rel="stylesheet" />  
+    <script src="https://cdn.tailwindcss.com"></script>  
+</head>  
+<body class="font-sans antialiased text-gray-800">  
+
+    <!-- Nav Bar (shared across pages) -->  
+    <header class="absolute top-0 left-0 w-full z-10">  
+        <nav class="flex items-center justify-between px-6 py-4 bg-transparent text-white">  
+            @if (!isAuthenticated || currentPage == "/Index")  
+            {  
+                 <a asp-page="/Index" class="text-2xl font-bold text-gray-500 hover:text-[#0a0e27] transition">  
+                CompleteOffice  
                 </a>
-           </div>
-        </nav>
-    </header>
+            }
+            else
+            {
+                <div class="w-[10rem]"></div>
+            }
+            <ul class="hidden md:flex space-x-6 text-lg">  
+                @if (isAuthenticated)  
+                {  
+                    <li><a class="text-gray-500 hover:underline" asp-page="/Index">Home</a></li>  
+                }  
+                <li><a class="text-gray-500 hover:underline" asp-page="/About">About</a></li>  
+                <li><a class="text-gray-500 hover:underline" asp-page="/Contact">Contact</a></li>  
+            </ul>  
+           <div class="hidden md:flex space-x-4">  
+                <partial name="LoginPartial" />  
+           </div>  
+        </nav>  
+    </header>  
 
-    <!-- Page Content -->
-    <main role="main">
-        @RenderBody()
-    </main>
+    <!-- Page Content -->  
+    <main role="main">  
+        @RenderBody()  
+    </main>  
 
-</body>
+</body>  
 </html>

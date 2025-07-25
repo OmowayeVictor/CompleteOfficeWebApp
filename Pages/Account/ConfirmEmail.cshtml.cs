@@ -31,7 +31,8 @@ namespace CompleteOfficeApplication.Pages.Account
                 this.Message = "Faild to Validate Email";
                 return Page();
             }
-            return RedirectToPage("/Account/Login");
+            this.Message = "Email Successfully Validated!";
+            return Page();
         }
     }
 }

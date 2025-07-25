@@ -7,10 +7,10 @@
 <div class="min-h-screen bg-[#06081c] flex items-center justify-center px-4 text-gray-100">
     <div class="w-full max-w-md bg-[#0a0e27] p-8 rounded-xl shadow-lg">
         <h2 class="text-3xl font-bold mb-6 text-white text-center">Create an Account</h2>
-        <div asp-validation-summary="All"
-             class="text-red-400 text-sm mb-4 bg-red-900 bg-opacity-30 p-3 rounded hidden"
-             id="validation-summary">
-        </div>
+
+        <div asp-validation-summary="All" class="text-red-400 text-sm mb-4 bg-opacity-30 p-3 rounded"></div>
+
+
         <form method="post" class="space-y-4">
 
             <div>
@@ -29,7 +29,10 @@
 
             <div>
                 <label asp-for="Registration.Department" class="block mb-1">Department</label>
-                <input asp-for="Registration.Department" type="text" class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <select asp-for="Registration.Department" asp-items="Model.DepartmentOptions"
+                        class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">-- Select Department --</option>
+                </select>
                 <span asp-validation-for="Registration.Department" class="text-red-400 text-sm"></span>
 
             </div>
