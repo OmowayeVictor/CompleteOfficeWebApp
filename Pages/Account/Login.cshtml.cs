@@ -1,4 +1,5 @@
 using CompleteOfficeApplication.Pages.Account;
+using CompleteOfficeApplication.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,15 +13,17 @@ namespace CompleteOfficeApplication.Pages.Auth
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManger;
         private readonly ILogger<RegisterModel> logger;
+        private readonly IHelpers helpers;
 
-        public SignInModel(UserManager<User> userManager ,SignInManager<User> signInManager, ILogger<RegisterModel> logger)
+        public SignInModel(UserManager<User> userManager ,SignInManager<User> signInManager, ILogger<RegisterModel> logger,IHelpers helpers)
         {
             this.userManager = userManager;
             this.signInManger = signInManager;
             this.logger = logger;
+            this.helpers = helpers;
         }
         [BindProperty]
-        public Login Login { get; set; } = new Login();
+        public LoginModel Login { get; set; } = new LoginModel();
         public void OnGet()
         {
         }
@@ -37,11 +40,7 @@ namespace CompleteOfficeApplication.Pages.Auth
             {
                 if (response.RequiresTwoFactor)
                 {
-                    return RedirectToPage("/Account/LoginMFA", new
-                    {
-                        Login.Email,
-                        Login.RememberMe
-                    });
+                    return RedirectToPage("/Account/LoginWith2FA");
                 }
                 if (response.IsLockedOut)
                 {
@@ -53,17 +52,7 @@ namespace CompleteOfficeApplication.Pages.Auth
                 }
                 return Page();
             }
-            return RedirectToPage(await RedirectToDepartment(Login.Email));
-        }
-
-        public async Task<string> RedirectToDepartment(string userEmail)
-        {
-            User? user = await userManager.FindByEmailAsync(userEmail);
-            var claims = await userManager.GetClaimsAsync(user!);
-            var department = claims.FirstOrDefault(c => c.Type == "Department")?.Value;
-
-            return $"/Departments/{department}/Index";
-
+            return RedirectToPage(await helpers.RedirectToDepartment(Login.Email));
         }
     }
 }
