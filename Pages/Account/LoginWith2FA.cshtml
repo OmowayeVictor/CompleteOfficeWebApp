@@ -1,0 +1,28 @@
+﻿@page
+@model CompleteOfficeApplication.Pages.Account.LoginWith2FAModel
+@{
+    ViewData["Title"] = "Two-Factor Authentication";
+}
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Two-Factor Authentication</h2>
+
+        <div asp-validation-summary="All" class="text-red-500 text-sm mb-4 p-3 rounded"></div>
+
+        <form method="post">
+            <div class="mb-4">
+                <label asp-for="LoginPage.Code" class="block text-sm font-medium text-gray-700">Authentication Code</label>
+                <input asp-for="LoginPage.Code" autocomplete="one-time-code" class="mt-1 block w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <span asp-validation-for="LoginPage.Code" class="text-sm text-red-600"></span>
+            </div>
+
+            <div class="mb-4 flex items-center">
+                <input asp-for="LoginPage.RemeberMe" class="h-4 w-4 text-blue-600 border-gray-300 rounded" />
+                <label asp-for="LoginPage.RemeberMe" class="ml-2 block text-sm text-gray-600">Remember this device</label>
+            </div>
+
+            <button type="submit" class="w-full bg-[#0a0e27] text-white py-2 px-4 rounded hover:bg-[#131a40] transition">Verify</button>
+        </form>
+    </div>
+</div>

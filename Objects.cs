@@ -29,10 +29,15 @@ namespace CompleteOfficeApplication
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
 
+        [Required]
+        [DataType(DataType.Password)]
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+
         public string Department { get; set; } = string.Empty;
         public Position? Position { get; set; } 
     }
-    public class Login
+    public class LoginModel
     {
         [Required]
         [EmailAddress(ErrorMessage = "Inavlid Email Address")]
@@ -68,5 +73,59 @@ namespace CompleteOfficeApplication
         [Required]
         [StringLength(500, MinimumLength = 10, ErrorMessage = "Message must be between 10 and 500 characters.")]
         public string Message { get; set; } = string.Empty;
+    }
+    public class Enable2FAModel
+    {
+        public string? Code { get; set; }
+    }
+
+    public class LoginWith2FA
+    {
+        [Required]
+        public string? Code { get; set; }
+        public bool RemeberMe { get; set; } = false;
+    }
+
+    public class ForgotPassword
+    {
+        public string Email { get; set; } = string.Empty;
+    }
+
+    public class ResetPassword
+    {
+        [Required]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+
+        public string Token { get; set; } = string.Empty;
+    }
+
+    public class ChangePassword
+    {
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string OldPassword { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = string.Empty ;
+
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

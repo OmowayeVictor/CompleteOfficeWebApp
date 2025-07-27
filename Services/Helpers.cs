@@ -1,7 +1,15 @@
-﻿namespace CompleteOfficeApplication.Services
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace CompleteOfficeApplication.Services
 {
     public class Helpers : IHelpers
     {
+        private readonly UserManager<User> userManager;
+
+        public Helpers(UserManager<User> userManager)
+        {
+            this.userManager = userManager;
+        }
         public string ContactUsHTMLBody(string name, string email, string subject, string message)
         {
             return @$"
@@ -74,6 +82,15 @@
 </body>
 </html>
 ";
+        }
+
+        public async Task<string> RedirectToDepartment(string userEmail)
+        {
+            User? user = await userManager.FindByEmailAsync(userEmail);
+            var claims = await userManager.GetClaimsAsync(user!);
+            var department = claims.FirstOrDefault(c => c.Type == "Department")?.Value;
+
+            return $"/Departments/{department}/Index";
         }
     }
 }

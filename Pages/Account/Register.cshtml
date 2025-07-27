@@ -28,6 +28,13 @@
             </div>
 
             <div>
+                <label asp-for="Registration.ConfirmPassword" class="block mb-1">Confirm Password</label>
+                <input asp-for="Registration.ConfirmPassword" type="password" class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <span asp-validation-for="Registration.ConfirmPassword" class="text-red-400 text-sm"></span>
+
+            </div>
+
+            <div>
                 <label asp-for="Registration.Department" class="block mb-1">Department</label>
                 <select asp-for="Registration.Department" asp-items="Model.DepartmentOptions"
                         class="w-full px-4 py-2 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">

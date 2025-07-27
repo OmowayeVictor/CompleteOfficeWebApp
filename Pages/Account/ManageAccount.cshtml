@@ -1,0 +1,32 @@
+﻿@page
+@model CompleteOfficeApplication.Pages.Account.ManageAccountModel
+@{
+    ViewData["Title"] = "Manage Account";
+}
+   
+
+<section class="max-w-2xl mx-auto mt-16 p-6 bg-white rounded-xl shadow">
+    <h2 class="text-2xl font-bold text-[#0a0e27] mb-6">Account Settings</h2>
+
+    <div class="space-y-4">
+        <div class="flex items-center justify-between p-4 bg-gray-100 rounded">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">Two-Factor Authentication</h3>
+                <p class="text-sm text-gray-600">Add an extra layer of security with mobile 2FA.</p>
+            </div>
+            <a asp-page="/Account/Enable2FA" class="bg-[#0a0e27] text-white px-4 py-2 rounded hover:bg-gray-800 transition">
+                Enable 2FA
+            </a>
+        </div>
+
+        <div class="flex items-center justify-between p-4 bg-gray-100 rounded">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">Password</h3>
+                <p class="text-sm text-gray-600">Tired of previous password ?</p>
+            </div>
+            <a asp-page="/Account/ChangePassword" class="bg-[#0a0e27] text-white px-4 py-2 rounded hover:bg-gray-800 transition">
+                Update Password
+            </a>
+        </div>
+    </div>
+</section>
