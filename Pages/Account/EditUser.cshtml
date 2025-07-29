@@ -1,0 +1,43 @@
+﻿@page "{id}"
+@model CompleteOfficeApplication.Pages.Account.EditUserModel
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded-lg shadow">
+    <h2 class="text-2xl font-bold mb-6 text-[#0a0e27]">Edit User</h2>
+
+    <form method="post" class="space-y-5">
+        <div>
+            <label asp-for="EditUser.Email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input asp-for="EditUser.Email"
+                   class="w-full px-4 py-2 rounded border border-gray-300 bg-gray-100 text-gray-700 cursor-not-allowed"
+                   readonly />
+        </div>
+
+        <div>
+            <label asp-for="EditUser.Department" class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+            <select asp-for="EditUser.Department" asp-items="Model.DepartmentOptions"
+                    class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">-- Select Department --</option>
+            </select>
+            <span asp-validation-for="EditUser.Department" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label asp-for="EditUser.Position" class="block text-sm font-medium text-gray-700 mb-1">Position</label>
+            <select asp-for="EditUser.Position" asp-items="Model.PositionOptions"
+                    class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">-- Select Position --</option>
+            </select>
+            <span asp-validation-for="EditUser.Position" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div class="pt-4 text-right">
+            <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded shadow">
+                Save Changes
+            </button>
+        </div>
+    </form>
+</div>

@@ -7,11 +7,12 @@ using System.Security.Claims;
 
 namespace CompleteOfficeApplication.Pages.Account
 {
-    public class RegisterModel(UserManager<User> userManager, IEmail email, ILogger<RegisterModel> logger) : PageModel
+    public class RegisterModel(UserManager<User> userManager, IEmail email, ILogger<RegisterModel> logger, IHelpers helpers) : PageModel
     {
         private readonly UserManager<User> userManager = userManager;
         private readonly IEmail email = email;
         private readonly ILogger<RegisterModel> logger = logger;
+        private readonly IHelpers helpers = helpers;
 
         [BindProperty]
         public Registration Registration { get; set; } = new Registration();
@@ -20,13 +21,13 @@ namespace CompleteOfficeApplication.Pages.Account
 
         public void OnGet()
         {
-            LoadPositions();
-            LoadDepartments();
+            PositionOptions = helpers.LoadPositions();
+            DepartmentOptions = helpers.LoadDepartments();
         }
         public async Task<IActionResult> OnPost()
         {
-            LoadPositions();
-            LoadDepartments();
+            PositionOptions = helpers.LoadPositions();
+            DepartmentOptions = helpers.LoadDepartments();
 
             if (!ModelState.IsValid) {
                 return Page();
@@ -35,6 +36,8 @@ namespace CompleteOfficeApplication.Pages.Account
             {
                 UserName = Registration.Email,
                 Email = Registration.Email,
+                Position = (Position)Registration.Position!,
+                Department = Registration.Department,
             };
             var department = new Claim("Department", Registration.Department);
             var position = new Claim("Position", Registration.Position.ToString()!);
@@ -67,30 +70,6 @@ namespace CompleteOfficeApplication.Pages.Account
             return RedirectToPage("/Account/Login");
 
 
-        }
-
-        private void LoadPositions()
-        {
-            PositionOptions = Enum.GetValues(typeof(Position))
-                .Cast<Position>()
-                .Select(p => new SelectListItem
-                {
-                    Text = p.ToString(),
-                    Value = p.ToString()
-                })
-                .ToList();
-        }
-
-        private void LoadDepartments()
-        {
-            DepartmentOptions = Enum.GetValues(typeof(Department))
-                .Cast<Department>()
-                .Select(d => new SelectListItem
-                {
-                    Text = d.ToString(),
-                    Value = d.ToString()
-                })
-                .ToList();
         }
     }
 }

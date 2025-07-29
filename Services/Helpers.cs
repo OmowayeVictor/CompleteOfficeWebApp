@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CompleteOfficeApplication.Services
 {
@@ -91,6 +92,31 @@ namespace CompleteOfficeApplication.Services
             var department = claims.FirstOrDefault(c => c.Type == "Department")?.Value;
 
             return $"/Departments/{department}/Index";
+        }
+
+        public List<SelectListItem> LoadPositions()
+        {
+            return Enum.GetValues(typeof(Position))
+                .Cast<Position>()
+                .Select(p => new SelectListItem
+                {
+                    Text = p.ToString(),
+                    Value = p.ToString()
+                })
+                .ToList();
+        }
+
+        public List<SelectListItem> LoadDepartments()
+        {
+            return Enum.GetValues(typeof(Department))
+                .Cast<Department>()
+                .Select(d => new SelectListItem
+                {
+                    Text = d.ToString(),
+                    Value = d.ToString()
+                })
+                .ToList();
+
         }
     }
 }

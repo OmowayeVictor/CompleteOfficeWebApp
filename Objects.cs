@@ -128,4 +128,11 @@ namespace CompleteOfficeApplication
         [Compare("Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
     }
+    public class EditModel
+    {
+        public string? Email { get; set; }
+        public string? Department { get; set; }
+        public Position? Position { get; set; }
+
+    }
 }

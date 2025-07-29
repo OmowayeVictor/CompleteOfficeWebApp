@@ -1,6 +1,9 @@
-﻿@{
+﻿@using System.Security.Claims
+
+@{
     var isAuthenticated = User?.Identity?.IsAuthenticated ?? false;
     var currentPage = ViewContext.RouteData.Values["page"]?.ToString();
+    var userDepartment = User?.FindFirst("Department")?.Value;
 }
 
 <!DOCTYPE html>
@@ -17,7 +20,7 @@
     @if (isAuthenticated)
     {
         <!-- Sidebar Toggle -->
-        <button id="sidebarToggle" class="fixed top-4 left-4 z-50 bg-transparent text-[#0a0e27] p-2 rounded shadow">
+        <button id="sidebarToggle" class="fixed top-4 left-4 z-50 bg-white text-[#0a0e27] p-2 rounded shadow">
             ☰
         </button>
 
@@ -25,17 +28,18 @@
         <aside id="sidebar" class="w-60 bg-[#0a0e27] text-white p-6 space-y-4 fixed top-0 left-0 h-full transform -translate-x-full transition-transform duration-300 z-40">
             <div class="text-2xl font-bold mb-6 pl-6">CompleteOffice</div>
             <nav class="space-y-2">
-                <a asp-page="/Index" class="block hover:bg-gray-800 px-4 py-2 rounded">Dashboard</a>
+                <a asp-page="/Departments/@userDepartment/Index" class="block hover:bg-gray-800 px-4 py-2 rounded">Dashboard</a>
                 <a asp-page="/Tasks" class="block hover:bg-gray-800 px-4 py-2 rounded">Tasks</a>
                 <a asp-page="/Chat" class="block hover:bg-gray-800 px-4 py-2 rounded">Chat</a>
                 <a asp-page="/Files" class="block hover:bg-gray-800 px-4 py-2 rounded">Files</a>
                 <a asp-page="/Account/ManageAccount" class="block hover:bg-gray-800 px-4 py-2 rounded">Settings</a>
+                <a asp-page="/Account/AdminCRUD" class="block hover:bg-gray-800 px-4 py-2 rounded">Admin</a>
             </nav>
         </aside>
     }
 
     <!-- Nav Bar -->
-    <header class="absolute top-0 left-0 w-full z-10">
+    <header class="absolute top-0 left-0 w-full z-10 mb-5 bg-[#0a0e27]">
         <nav class="flex items-center justify-between px-6 py-4 bg-transparent text-white">
             <div class="flex items-center space-x-4">
                 @if (currentPage == "/Index")
@@ -62,7 +66,8 @@
     </header>
 
     <!-- Page Content -->
-    <main role="main">
+    <main role="main"
+          class="pt-20">
         @RenderBody()
     </main>
 
