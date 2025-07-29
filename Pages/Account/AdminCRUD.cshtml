@@ -1,0 +1,69 @@
+﻿@page
+@model CompleteOfficeApplication.Pages.Account.AdminCRUDModel
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="max-w-6xl mx-auto p-6">
+    @if (!Model.IsAuthorized)
+    {
+        <div class="bg-red-100 border border-red-300 text-red-700 p-6 rounded-lg shadow text-center">
+            <h2 class="text-xl font-semibold mb-2">Access Denied</h2>
+            <p class="text-sm">You're not authorized to view this page. Please contact your administrator.</p>
+        </div>
+    }
+    else
+    {
+        <div class="mb-6">
+            <h2 class="text-3xl font-bold text-[#0a0e27] mb-1">
+                Users in <span class="text-blue-700">@Model.Department</span> Department
+            </h2>
+            <p class="text-gray-600">Manage users, edit roles, and maintain department access.</p>
+        </div>
+
+
+        @if (Model.UsersList?.Any() == true)
+        {
+            <div class="flex justify-end mb-3">
+                <a href="/Account/Register"
+                   class="bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-4 py-2 rounded shadow">
+                    + Create New User
+                </a>
+            </div>
+            <div class="overflow-x-auto rounded-lg shadow ring-1 ring-gray-200">
+                <table class="min-w-full text-sm text-left text-gray-700">
+                    <thead class="bg-gray-100 text-xs font-semibold uppercase text-gray-600">
+                        <tr>
+                            <th class="px-6 py-4">Email</th>
+                            <th class="px-6 py-4">Department</th>
+                            <th class="px-6 py-4">Position</th>
+                            <th class="px-6 py-4 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach (var user in Model.UsersList!)
+                        {
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4">@user.Email</td>
+                                <td class="px-6 py-4">@user.Department</td>
+                                <td class="px-6 py-4">@user.Position</td>
+                                <td class="px-6 py-4 text-right space-x-2">
+                                    <a asp-page="/Account/EditUser" asp-route-id="@user.Id" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium px-4 py-2 rounded">Edit</a>
+                                    <form method="post" asp-page-handler="DeleteAsync" asp-route-id="@user.Id" onsubmit="return confirm('Are you sure?')" class="inline">
+                                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white text-xs font-medium px-4 py-2 rounded">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="bg-yellow-50 border border-yellow-200 text-yellow-700 p-4 rounded mt-4">
+                <p>No users found in this department.</p>
+            </div>
+        }
+    }
+</div>
