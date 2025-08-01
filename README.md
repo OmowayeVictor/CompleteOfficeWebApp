@@ -63,13 +63,13 @@ The **Complete Office Application (COA)** is a robust intranet tool built with m
    git clone https://github.com/your-org/CompleteOfficeApp.git
    cd CompleteOfficeApp
    
-2. **Restore dependencies and migrate the database:
+2. **Restore dependencies and migrate the database:**
 
 ```bash
   dotnet restore
   dotnet ef database update
 ```
-3. **Run the application:
+3. **Run the application:**
 ```bash
 dotnet run
 ```
@@ -81,7 +81,7 @@ or
 
 ##Docker Build & Deployment
 
-**Build the Docker image:
+**Build the Docker image:**
 ```
 bash
 docker build -t <image_name> .
@@ -136,7 +136,7 @@ dotnet ef database update
 }
 \``` </pre>
 
-**Examples
+**Examples**
 - `Register a user in the IT department as a Manager`
 
 - `Login as Super Admin and edit access of users in another department`
@@ -151,6 +151,6 @@ dotnet ef database update
 | Login fails after Docker deploy     | Ensure DB is accessible inside the container or use environment variables for DB config. |
 | Permissions not applying correctly  | Verify claims are set correctly on the user and `IsAuthorized` logic is working. |
 
-##🤝 Contributors
+### 🤝 Contributors
 **Initial Developer:** Omowaye Victor
 Feel free to open issues or submit pull requests.
