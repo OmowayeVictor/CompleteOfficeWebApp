@@ -73,28 +73,28 @@ The **Complete Office Application (COA)** is a robust intranet tool built with m
 ```bash
 dotnet run
 ```
-**Access in browser:
+**Access in browser:**
 
  - [http://localhost:5239](http://localhost:5239)  
 or
 - [https://localhost:7113](https://localhost:7113)
 
-##Docker Build & Deployment
+### Docker Build & Deployment
 
 **Build the Docker image:**
 ```
 bash
 docker build -t <image_name> .
 ```
-**Run the container:
+**Run the container:**
 ```bash
 docker run -d -p 3000:8080 --name complete-office-app <image_name
 ```
-**Access the application:
+**Access the application:**
 
 - [http://localhost:3000](http://localhost:3000)
 
-**📌 You can map the port (-p) to any available host port.
+**📌 You can map the port (-p) to any available host port.**
 
 > **Note:** Make sure to run Migrations on DB.
  ```bash
@@ -102,9 +102,9 @@ dotnet ef migrations add <Migration_tag>
 dotnet ef database update
 ```
 
-##🔧 Sample appsettings.json
-**Below is a basic sample appsettings.json for local development or Dockerized environments:
-<pre lang="markdown"> \```
+## 🔧 Sample appsettings.json
+**Below is a basic sample appsettings.json for local development or Dockerized environments:**
+<pre lang="json"> 
 {
   "Admin": {
     "Email": "<Admin Email>",
@@ -112,7 +112,7 @@ dotnet ef database update
   },
   "AllowedHosts": "*",
   "App": {
-    "BaseUrl": "http://localhost:7113" // Your base Url
+    "BaseUrl": "http://localhost:7113" // Your Base Url
   },
   "ConnectionStrings": {
     "DefaultConnection": "Data Source=(local);Initial Catalog=OfficeWebApp;Integrated Security=True;Trust Server Certificate=True;" //Edit as you feel.
@@ -131,10 +131,10 @@ dotnet ef database update
     "Port": 587,
     "Username": "<user name or email>",
     "Password": "Password",
-    "Email": "<relay email>" //I user brevo you could try them too
+    "Email": "<relay email>" // I used brevo you could try them too
   }
 }
-\``` </pre>
+ </pre>
 
 **Examples**
 - `Register a user in the IT department as a Manager`
