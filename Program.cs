@@ -1,4 +1,5 @@
 using CompleteOfficeApplication;
+using CompleteOfficeApplication.Data;
 using CompleteOfficeApplication.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,14 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 var app = builder.Build();
+
+using(var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<OfficeWebAppDbContext>();
+    context.Database.Migrate();
+
+    await IdentitySeed.SeedAdmin(scope.ServiceProvider, builder.Configuration);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

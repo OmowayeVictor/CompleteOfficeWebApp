@@ -12,7 +12,8 @@ namespace CompleteOfficeApplication
         Supervisor,
         Manager,
         SeniorManager,
-        Director
+        Director,
+        SuperAdmin
     }
     public enum Department
     {
@@ -36,6 +37,8 @@ namespace CompleteOfficeApplication
 
         public string Department { get; set; } = string.Empty;
         public Position? Position { get; set; } 
+
+        public bool IsSuperAdmin { get; set; }
     }
     public class LoginModel
     {

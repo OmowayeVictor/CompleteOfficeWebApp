@@ -17,9 +17,10 @@ namespace CompleteOfficeApplication.Pages.Account
         [BindProperty]
         public List<User>? UsersList { get; set; }
         public bool IsAuthorized =>
-                    UserPosition == "Manager" ||
-                    UserPosition == "Senior Manager" ||
-                    UserPosition == "Director";
+                    UserPosition ==Position.Manager.ToString()||
+                    UserPosition == Position.SeniorManager.ToString() ||
+                    UserPosition == Position.Director.ToString() ||
+                    UserPosition == Position.SuperAdmin.ToString();
         public async Task<IActionResult> OnGetAsync()
         {
             UserPosition = User.FindFirst("Position")?.Value!;
@@ -28,21 +29,18 @@ namespace CompleteOfficeApplication.Pages.Account
             {
                 return Page();
             };
-
-            UsersList = await userManager.Users
-                .Where(u => u.Department == Department).ToListAsync();
+            if (UserPosition == "SuperAdmin")
+            {
+                UsersList = await userManager.Users.ToListAsync();
+            }
+            else
+            {
+                UsersList = await userManager.Users
+                   .Where(u => u.Department == Department).ToListAsync();
+            }
 
             return Page();
 
-        }
-
-        public async Task<IActionResult> OnDeleteAsync(string id)
-        {
-            var user = await userManager.FindByIdAsync(id);
-            if (user == null) { return NotFound(); }
-
-            await userManager.DeleteAsync(user);
-            return RedirectToPage("./AdminCRUD");
         }
     }
 }
