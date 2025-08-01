@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace CompleteOfficeApplication.Pages.Account
 {
@@ -49,7 +50,24 @@ namespace CompleteOfficeApplication.Pages.Account
             user.Department = EditUser.Department ?? user.Department;
             user.Position = EditUser.Position ?? user.Position;
 
-            await userManager.UpdateAsync(user);
+            var existingPositionClaim = (await userManager.GetClaimsAsync(user))
+                                .FirstOrDefault(c => c.Type == "Position");
+
+            var existingDepartmentClaim = (await userManager.GetClaimsAsync(user))
+                                .FirstOrDefault(c => c.Type == "Department");
+            if (existingDepartmentClaim != null|| existingPositionClaim != null)
+            {
+                await userManager.RemoveClaimAsync(user, existingPositionClaim!);
+                await userManager.RemoveClaimAsync(user, existingDepartmentClaim!);
+            }
+            var positionClaim = EditUser.Position.ToString() ?? user.Position.ToString();
+            var departmentClaim = EditUser.Department!.ToString() ?? user.Department.ToString();
+
+            await userManager.AddClaimAsync(user, new Claim("Position", positionClaim!));
+            await userManager.AddClaimAsync(user, new Claim("Department", departmentClaim!));
+
+
+            _ = await userManager.UpdateAsync(user);
             return RedirectToPage("/Account/AdminCRUD");
         }
     }

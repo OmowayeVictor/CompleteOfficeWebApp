@@ -36,11 +36,11 @@ namespace CompleteOfficeApplication.Pages.Account
             {
                 UserName = Registration.Email,
                 Email = Registration.Email,
-                Position = (Position)Registration.Position!,
+                Position = Registration.IsSuperAdmin ? Position.SuperAdmin : Position.Officer,
                 Department = Registration.Department,
             };
             var department = new Claim("Department", Registration.Department);
-            var position = new Claim("Position", Registration.Position.ToString()!);
+            var position = Registration.IsSuperAdmin ? new Claim("Position", Position.SuperAdmin.ToString()) : new Claim("Position", Position.Officer.ToString());
 
             var response = await userManager.CreateAsync(user, Registration.Password);
 
@@ -48,14 +48,14 @@ namespace CompleteOfficeApplication.Pages.Account
             {
                 foreach (var error in response.Errors)
                 {
-                    ModelState.AddModelError(String.Empty, error.Description);
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
                 return Page();
             }
             var claims = new List<Claim>
             {
-                new Claim("Department", Registration.Department),
-                new Claim("Position", Registration.Position.ToString()!)
+               department,
+               position,
             };
 
             var DepartmentClaims = await this.userManager.AddClaimsAsync(user, claims);
