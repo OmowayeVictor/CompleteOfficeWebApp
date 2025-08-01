@@ -68,12 +68,89 @@ The **Complete Office Application (COA)** is a robust intranet tool built with m
 ```bash
   dotnet restore
   dotnet ef database update
-
+```
 3. **Run the application:
-
+```bash
 dotnet run
-Access in browser:
+```
+**Access in browser:
 
-http://localhost:5239
+ - [http://localhost:5239](http://localhost:5239)  
+or
+- [https://localhost:7113](https://localhost:7113)
 
-or https://localhost:7113
+##Docker Build & Deployment
+
+**Build the Docker image:
+```
+bash
+docker build -t <image_name> .
+```
+**Run the container:
+```bash
+docker run -d -p 3000:8080 --name complete-office-app <image_name
+```
+**Access the application:
+
+- [http://localhost:3000](http://localhost:3000)
+
+**📌 You can map the port (-p) to any available host port.
+
+> **Note:** Make sure to run Migrations on DB.
+ ```bash
+dotnet ef migrations add <Migration_tag>
+dotnet ef database update
+```
+
+##🔧 Sample appsettings.json
+**Below is a basic sample appsettings.json for local development or Dockerized environments:
+<pre lang="markdown"> \```
+{
+  "Admin": {
+    "Email": "<Admin Email>",
+    "Password": "<Password>"
+  },
+  "AllowedHosts": "*",
+  "App": {
+    "BaseUrl": "http://localhost:7113" // Your base Url
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=(local);Initial Catalog=OfficeWebApp;Integrated Security=True;Trust Server Certificate=True;" //Edit as you feel.
+  },
+  "ContactUs": {
+    "Email": "<Contact us mail>"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "SMTP": {
+    "Host": "<>smtp host",
+    "Port": 587,
+    "Username": "<user name or email>",
+    "Password": "Password",
+    "Email": "<relay email>" //I user brevo you could try them too
+  }
+}
+\``` </pre>
+
+**Examples
+- `Register a user in the IT department as a Manager`
+
+- `Login as Super Admin and edit access of users in another department`
+
+- `Deploy the app in Docker for testing or production use`
+
+## 🛠️ Troubleshooting
+
+| Problem                             | Solution                                                                 |
+|-------------------------------------|--------------------------------------------------------------------------|
+| Can't connect to DB                 | Check connection string in `appsettings.json`.                           |
+| Login fails after Docker deploy     | Ensure DB is accessible inside the container or use environment variables for DB config. |
+| Permissions not applying correctly  | Verify claims are set correctly on the user and `IsAuthorized` logic is working. |
+
+##🤝 Contributors
+**Initial Developer:** Omowaye Victor
+Feel free to open issues or submit pull requests.
